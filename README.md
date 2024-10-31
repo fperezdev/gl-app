@@ -1,50 +1,46 @@
-# React + TypeScript + Vite
+# Frontend App Grupo Lagos
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicación de frontend para el desafío técnico de Grupo Lagos hecho por Francisco Perez.
+</br>
+Se conecta a la API de Itunes para obtener canciones de algún artista y también permite guardar favoritos.
 
-Currently, two official plugins are available:
+## Tabla de contenidos
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [Frontend App Grupo Lagos](#frontend-app-grupo-lagos)
+  - [Tabla de contenidos](#tabla-de-contenidos)
+  - [Stack Tecnológico](#stack-tecnológico)
+  - [Instalación](#instalación)
+    - [Levantar localmente](#como-levantar-la-aplicación-localmente)
+  - [Consideraciones](#consideraciones)
+  - [Contribuyentes](#contribuyentes)
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Stack Tecnológico
 
-- Configure the top-level `parserOptions` property like this:
+- Node.js LTS 22.11.0
+- React 18 con TypeScript
+- Zustand
+- Material UI
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+---
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## Instalación
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+### Como levantar la aplicación localmente
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+Los siguientes pasos aplican tanto para Windows, Mac o Linux.
+
+1. Clonar el repositorio con `git clone https://github.com/fperezdev/gl-app.git`
+2. Correr el comando `npm i` si se clonó por primera vez el proyecto. Esto estando en la carpeta raíz que contiene el `package.json`.
+3. Ejecutar el comando `npm run dev` para correr localmente la aplicación.
+
+## Consideraciones
+
+Esta aplición cuenta con lo mínimo para cumplir los requerimientos del desafío, temas importantes como la seguridad se han dejado de lado para priorizar las funcionalidades.
+
+---
+
+## Contribuyentes
+
+- Francisco Perez Lefiman
