@@ -6,6 +6,7 @@ import {
   StarBorder as StarBorderIcon,
 } from "@mui/icons-material";
 import useStore from "../../../store";
+import { API_BASE_URL } from "../../../lib/consts";
 
 interface SongProps {
   song: SongType;
@@ -41,7 +42,7 @@ const Song = ({ song, userInfo }: SongProps) => {
 
     setFavDialogSongId(null);
 
-    const response = await fetch(`http://localhost:3001/favoritos`, {
+    const response = await fetch(`${API_BASE_URL}/favoritos`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

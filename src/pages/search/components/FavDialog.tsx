@@ -1,5 +1,6 @@
 import { Button, Dialog, DialogTitle } from "@mui/material";
 import useStore from "../../../store";
+import { API_BASE_URL } from "../../../lib/consts";
 
 const FavDialog = () => {
   const artistInfo = useStore((state) => state.artistInfo);
@@ -36,7 +37,7 @@ const FavDialog = () => {
 
     setFavDialogSongId(null);
 
-    const response = await fetch(`http://localhost:3001/favoritos`, {
+    const response = await fetch(`${API_BASE_URL}/favoritos`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

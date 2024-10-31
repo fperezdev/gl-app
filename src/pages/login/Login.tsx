@@ -1,6 +1,7 @@
 import { Button, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import useStore from "../../store";
+import { API_BASE_URL } from "../../lib/consts";
 
 const Login = () => {
   const [user, setUser] = useState("");
@@ -23,7 +24,7 @@ const Login = () => {
 
     // Se obtiene un usuario ya existente, de lo contrario se crea uno nuevo
     // Solo pide el nombre de usuario por ahora
-    const response = await fetch(`http://localhost:3001/auth/login`, {
+    const response = await fetch(`${API_BASE_URL}/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ nombre_usuario: user }),

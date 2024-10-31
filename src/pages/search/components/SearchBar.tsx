@@ -3,6 +3,7 @@ import { Search } from "@mui/icons-material";
 import { useState } from "react";
 import useStore from "../../../store";
 import { ArtistInfo } from "../../../lib/types";
+import { API_BASE_URL } from "../../../lib/consts";
 
 const SearchBar = () => {
   const userInfo = useStore((state) => state.userInfo);
@@ -33,9 +34,7 @@ const SearchBar = () => {
     if (artistsInfoCache[searchQuery]) {
       setArtistInfo(artistsInfoCache[searchQuery]);
     } else {
-      const url = new URL(
-        `http://localhost:3001/search_tracks?name=${searchQuery}`
-      );
+      const url = new URL(`${API_BASE_URL}/search_tracks?name=${searchQuery}`);
 
       const response = await fetch(url, {
         headers: { authorization: userInfo?.usuario || "" },
