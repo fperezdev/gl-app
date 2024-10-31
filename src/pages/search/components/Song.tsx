@@ -1,11 +1,11 @@
 import { pink } from "@mui/material/colors";
-import { Song as SongType, UserInfo } from "../../lib/types";
+import { Song as SongType, UserInfo } from "../../../lib/types";
 import { Tooltip, Typography } from "@mui/material";
 import {
   Star as StarIcon,
   StarBorder as StarBorderIcon,
 } from "@mui/icons-material";
-import useStore from "../../store";
+import useStore from "../../../store";
 
 interface SongProps {
   song: SongType;
@@ -16,13 +16,16 @@ const Song = ({ song, userInfo }: SongProps) => {
   const setUserInfo = useStore((state) => state.setUserInfo);
   const setFavDialogSongId = useStore((state) => state.setFavDialogSongId);
 
+  // Obtener el ranking de la canción en favoritos si es que está
   const favRank = userInfo?.favoritos?.find(
     (fav) => fav.cancion_id === song.cancion_id
   )?.ranking;
 
+  // Eliminar la canción de favoritos, primero se refleja en la UI,
+  // si la respuesta del servicio es negativa se revierte la acción
   const handleUnfav = async () => {
     if (!userInfo) return;
-    const currentFavs = userInfo.favoritos;
+    const currentFavs = [...userInfo.favoritos];
     const newFavs = [...currentFavs];
     const index = newFavs.findIndex(
       (fav) => fav.cancion_id === song.cancion_id
@@ -30,6 +33,25 @@ const Song = ({ song, userInfo }: SongProps) => {
     if (index === -1) return;
     newFavs.splice(index, 1);
     setUserInfo({ ...userInfo, favoritos: newFavs });
+
+    const requestBody = {
+      cancion_id: song.cancion_id,
+      usuario: userInfo.usuario,
+    };
+
+    setFavDialogSongId(null);
+
+    const response = await fetch(`http://localhost:3001/favoritos`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: userInfo.usuario,
+      },
+      body: JSON.stringify(requestBody),
+    });
+
+    if (response.status < 200 || response.status >= 300)
+      setUserInfo({ ...userInfo, favoritos: currentFavs });
   };
 
   return (

@@ -21,6 +21,8 @@ const Login = () => {
 
     setLoading(true);
 
+    // Se obtiene un usuario ya existente, de lo contrario se crea uno nuevo
+    // Solo pide el nombre de usuario por ahora
     const response = await fetch(`http://localhost:3001/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -33,6 +35,7 @@ const Login = () => {
     } else {
       setError("Error al intentar iniciar sesión");
     }
+
     setLoading(false);
   };
 

@@ -1,5 +1,5 @@
-import useStore from "../../store";
-import { Song } from "../../lib/types";
+import useStore from "../../../store";
+import { Song } from "../../../lib/types";
 import {
   CircularProgress,
   Pagination,
@@ -18,6 +18,7 @@ const SongList = () => {
 
   const [page, setPage] = useState(1);
 
+  // Volver a la paginación 1 cuando se cambia de artista
   useEffect(() => {
     setPage(1);
   }, [artistInfo]);

@@ -1,5 +1,5 @@
 import { Button, Dialog, DialogTitle } from "@mui/material";
-import useStore from "../../store";
+import useStore from "../../../store";
 
 const FavDialog = () => {
   const artistInfo = useStore((state) => state.artistInfo);
@@ -8,10 +8,13 @@ const FavDialog = () => {
   const favDialogSongId = useStore((state) => state.favDialogSongId);
   const setFavDialogSongId = useStore((state) => state.setFavDialogSongId);
 
+  // Se obtiene la canción que se va a agregar a favoritos
   const song = artistInfo?.canciones.find(
     (song) => song.cancion_id === favDialogSongId
   );
 
+  // Guardar la nueva canción favorita, primero se refleja en la UI,
+  // si la respuesta del servicio es negativa se revierte la acción
   const handleFavoriteClick = async (rank: number) => {
     if (!userInfo || !song) return;
     const currentUserInfo = { ...userInfo };

@@ -1,5 +1,5 @@
-import SongList from "./SongList";
-import SearchBar from "../../components/SearchBar";
+import SearchBar from "./components/SearchBar";
+import SongList from "./components/SongList";
 
 const Search = () => {
   return (

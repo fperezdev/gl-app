@@ -1,8 +1,8 @@
 import { IconButton, TextField } from "@mui/material";
 import { Search } from "@mui/icons-material";
 import { useState } from "react";
-import useStore from "../store";
-import { ArtistInfo } from "../lib/types";
+import useStore from "../../../store";
+import { ArtistInfo } from "../../../lib/types";
 
 const SearchBar = () => {
   const userInfo = useStore((state) => state.userInfo);
@@ -19,6 +19,9 @@ const SearchBar = () => {
     setSearchQuery(e.target.value);
   };
 
+  // Se buscan las canciones de un artista en específico
+  // Se guarda en caché para no repetir la misma petición
+  // Sería mejor usar React Query para esto
   const handleSearch = async () => {
     if (searchQuery === "") {
       setError("La búsqueda no puede estar vacía");
