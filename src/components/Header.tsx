@@ -5,15 +5,14 @@ import logo from "../assets/logo.png";
 import { pink } from "@mui/material/colors";
 
 const Header = () => {
-  const user = useStore((state) => state.user);
-  const setUser = useStore((state) => state.setUser);
+  const userInfo = useStore((state) => state.userInfo);
+  const setUserInfo = useStore((state) => state.setUserInfo);
   const handleLogout = () => {
-    setUser(null);
-    window.localStorage.removeItem("user");
+    setUserInfo(null);
   };
   return (
     <Paper
-      elevation={1}
+      elevation={0}
       sx={{
         height: 70,
         padding: "0 20px",
@@ -23,17 +22,15 @@ const Header = () => {
       }}
     >
       <img src={logo} width={50} height={50} alt="logo" />
-      <Typography variant="h4" sx={{}}>
-        GL App
-      </Typography>
+      <Typography variant="h5">GL App</Typography>
       <div style={{ marginLeft: "auto" }}>
-        {user ? (
+        {userInfo ? (
           <Tooltip title="Cerrar sesión" arrow>
             <Avatar
               onClick={handleLogout}
               sx={{ bgcolor: pink[500], cursor: "pointer" }}
             >
-              {user[0].toUpperCase()}
+              {userInfo.usuario[0].toUpperCase()}
             </Avatar>
           </Tooltip>
         ) : (

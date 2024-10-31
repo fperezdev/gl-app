@@ -6,11 +6,13 @@ import {
   Skeleton,
   Typography,
 } from "@mui/material";
-import { pink } from "@mui/material/colors";
 import { useEffect, useState } from "react";
+import SongComponent from "./Song";
+import FavDialog from "./FavDialog";
 
 const SongList = () => {
   const loading = useStore((state) => state.loadingArtistInfo);
+  const userInfo = useStore((state) => state.userInfo);
   const artistInfo = useStore((state) => state.artistInfo);
   const songs = artistInfo?.canciones || [];
 
@@ -34,8 +36,13 @@ const SongList = () => {
               gap: "20px",
             }}
           >
-            {new Array(6).fill(0).map(() => (
-              <Skeleton variant="rectangular" width={470} height={160} />
+            {[1, 2, 3, 4, 5, 6].map((id) => (
+              <Skeleton
+                key={`songs-fetch-sk-${id}`}
+                variant="rectangular"
+                width={470}
+                height={160}
+              />
             ))}
           </div>
         </div>
@@ -75,61 +82,16 @@ const SongList = () => {
               )
               .slice((page - 1) * 6, page * 6)
               .map((song: Song) => (
-                <div
+                <SongComponent
                   key={song.cancion_id}
-                  style={{
-                    width: 450,
-                    height: 120,
-                    padding: "10px 20px",
-                    display: "flex",
-                    alignItems: "center",
-                    border: `2px solid ${pink[300]}`,
-                    borderRadius: 5,
-                    textAlign: "left",
-                    gap: "10px",
-                    overflow: "hidden",
-                  }}
-                >
-                  <img
-                    src={song.img}
-                    alt={song.nombre_tema}
-                    width={100}
-                    height={100}
-                  />
-
-                  <div>
-                    <Typography
-                      variant="body1"
-                      fontWeight={600}
-                      maxWidth={350}
-                      noWrap
-                      textOverflow="ellipsis"
-                    >
-                      {song.nombre_tema}
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      maxWidth={350}
-                      noWrap
-                      textOverflow="ellipsis"
-                    >
-                      Album "{song.nombre_album}"
-                    </Typography>
-                    <Typography variant="body2">{`Precio ${song.precio.valor} ${song.precio.moneda}`}</Typography>
-                    <Typography variant="body2">
-                      {`Lanzado ${new Date(
-                        song.fecha_lanzamiento
-                      ).toLocaleDateString()}`}
-                    </Typography>
-                    <a href={song.preview_url}>
-                      <Typography variant="body2">Descargar Preview</Typography>
-                    </a>
-                  </div>
-                </div>
+                  song={song}
+                  userInfo={userInfo}
+                />
               ))}
           </div>
         </>
       )}
+      <FavDialog />
     </div>
   );
 };

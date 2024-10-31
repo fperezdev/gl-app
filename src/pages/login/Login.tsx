@@ -4,22 +4,36 @@ import useStore from "../../store";
 
 const Login = () => {
   const [user, setUser] = useState("");
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const setUserStore = useStore((state) => state.setUser);
+  const setUserInfo = useStore((state) => state.setUserInfo);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUser(e.target.value);
     setError(null);
   };
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (user === "") {
       setError("El usuario no puede estar vacío");
       return;
     }
 
-    window.localStorage.setItem("user", user);
-    setUserStore(user);
+    setLoading(true);
+
+    const response = await fetch(`http://localhost:3001/auth/login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ nombre_usuario: user }),
+    });
+
+    if (response.status >= 200 && response.status < 300) {
+      const userInfo = await response.json();
+      setUserInfo(userInfo);
+    } else {
+      setError("Error al intentar iniciar sesión");
+    }
+    setLoading(false);
   };
 
   return (
@@ -51,8 +65,9 @@ const Login = () => {
         color="primary"
         sx={{ width: 150 }}
         onClick={handleLogin}
+        disabled={loading}
       >
-        Ingresar
+        {loading ? "Cargando..." : "Iniciar sesión"}
       </Button>
     </div>
   );

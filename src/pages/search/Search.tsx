@@ -4,7 +4,12 @@ import SearchBar from "../../components/SearchBar";
 const Search = () => {
   return (
     <div
-      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+      style={{
+        position: "relative",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
     >
       <SearchBar />
       <SongList />

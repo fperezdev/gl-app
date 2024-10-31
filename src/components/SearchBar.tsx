@@ -4,11 +4,8 @@ import { useState } from "react";
 import useStore from "../store";
 import { ArtistInfo } from "../lib/types";
 
-interface SearchBar {
-  setSearchQuery: (query: string) => void;
-}
-
 const SearchBar = () => {
+  const userInfo = useStore((state) => state.userInfo);
   const artistsInfoCache = useStore((state) => state.artistsInfoCache);
   const setArtistInfoCache = useStore((state) => state.setArtistInfoCache);
   const setArtistInfo = useStore((state) => state.setArtistInfo);
@@ -37,7 +34,9 @@ const SearchBar = () => {
         `http://localhost:3001/search_tracks?name=${searchQuery}`
       );
 
-      const response = await fetch(url);
+      const response = await fetch(url, {
+        headers: { authorization: userInfo?.usuario || "" },
+      });
       const data: ArtistInfo = await response.json();
 
       setArtistInfoCache(searchQuery, data);
@@ -51,7 +50,7 @@ const SearchBar = () => {
     <div
       style={{
         width: "fit-content",
-        height: 80,
+        height: 50,
         position: "relative",
         display: "flex",
         justifyContent: "center",
@@ -74,7 +73,7 @@ const SearchBar = () => {
         sx={{
           position: "absolute",
           right: -45,
-          bottom: 15,
+          bottom: 0,
         }}
       >
         <Search color={error ? "error" : "primary"} />

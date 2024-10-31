@@ -5,12 +5,12 @@ import Search from "./pages/search/Search";
 import useStore from "./store";
 
 function App() {
-  const user = useStore((state) => state.user);
+  const userInfo = useStore((state) => state.userInfo);
 
   return (
     <>
       <Header />
-      {user ? <Search /> : <Login />}
+      {userInfo?.usuario ? <Search /> : <Login />}
     </>
   );
 }
